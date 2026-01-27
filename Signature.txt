@@ -1,3 +1,5 @@
+Signature for ~/Binaries/Sillplate_Framework.jar
+
 -----BEGIN PGP SIGNATURE-----
 
 iQIzBAABCAAdFiEEfAfiVsSIQm9LdsP25gJ2uC7lZkUFAml4J4gACgkQ5gJ2uC7l
