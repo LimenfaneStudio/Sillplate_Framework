@@ -1,0 +1,6 @@
+2026: [General] [Info] Test 4
+2026: [General] [Warning] Failed to remove old file
+2026: [General] [Info] Test 5
+2026: [Application] [Info] Destroying Sillplate Framework application
+2026: [Application] [Info] Destroying log manager
+2026: [Log Manager] [Info] Destroying logging system
