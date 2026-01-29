@@ -22,7 +22,7 @@ public class LogLevel {
 	protected String name = "";
 	
 	/*
-	 * Initializes a log level flag with a name
+	 * Constructs a log level flag with a name
 	 * Parameter: String name - The name of this log level flag
 	 */
 	public LogLevel(String name) {

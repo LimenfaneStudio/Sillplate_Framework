@@ -41,11 +41,11 @@ public class LogManager {
 	 */
 	public boolean initialize(
 			ApplicationConfiguration.LogConfiguration configuration) {
+		files = new HashMap<String, FileWriter>();
 		setConsoleEnabled(configuration.consoleEnabled);
 		if (!setTimestampFormat(configuration.timestampFormat)) {
 			return false;
 		}
-		files = new HashMap<String, FileWriter>();
 		for (String fileName : configuration.fileNames) {
 			if (!addFileName(fileName)) {
 				return false;
@@ -140,6 +140,8 @@ public class LogManager {
 	 */
 	public void setConsoleEnabled(boolean consoleEnabled) {
 		this.consoleEnabled = consoleEnabled;
+		Application.Log.write(LogSource.Log, LogLevel.Information, "Set ",
+				"console output enabled ", consoleEnabled);
 	}
 	/*
 	 * Get the current timestamp format used by the logging system
@@ -157,9 +159,13 @@ public class LogManager {
 		try {
 			DateTimeFormatter.ofPattern(timestampFormat);
 		} catch (IllegalArgumentException e) {
+			Application.Log.write(LogSource.Log, LogLevel.Warning, "Invalid ",
+					"timestamp format \"", timestampFormat, "\"");
 			return false;
 		}
 		this.timestampFormat = timestampFormat;
+		Application.Log.write(LogSource.Log, LogLevel.Information, "Set ",
+				"timestamp format \"", this.timestampFormat, "\"");
 		return true;
 	}
 	/*
@@ -177,13 +183,19 @@ public class LogManager {
 	 */
 	public boolean addFileName(String fileName) {
 		if (files.containsKey(fileName)) {
+			Application.Log.write(LogSource.Log, LogLevel.Warning, "Log file ",
+					"\"", fileName, "\" already present");
 			return false;
 		}
 		try {
 			files.put(fileName, new FileWriter(fileName));
 		} catch (IOException e) {
+			Application.Log.write(LogSource.Log, LogLevel.Warning, "Failed to ",
+					"open log file \"", fileName, "\"");
 			return false;
 		}
+		Application.Log.write(LogSource.Log, LogLevel.Information, "Added log ",
+				"file \"", fileName, "\"");
 		return true;
 	}
 	/*
@@ -195,14 +207,20 @@ public class LogManager {
 	public boolean removeFileName(String fileName) {
 		boolean success = true;
 		if (!files.containsKey(fileName)) {
+			Application.Log.write(LogSource.Log, LogLevel.Warning, "Log file ",
+					"\"", fileName, "\" not present");
 			return false;
 		}
 		try {
 			files.get(fileName).close();
 		} catch (IOException e) {
+			Application.Log.write(LogSource.Log, LogLevel.Warning, "Failed to ",
+					"close log file \"", fileName, "\"");
 			success = false;
 		}
 		files.remove(fileName);
+		Application.Log.write(LogSource.Log, LogLevel.Information, "Removed ",
+				"log file \"", fileName, "\"");
 		return success;
 	}
 	

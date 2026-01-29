@@ -17,12 +17,14 @@ public class LogSource {
 	public static LogSource Application = new LogSource("Application");
 	// Logging system log source
 	public static LogSource Log = new LogSource("Log Manager");
+	// Windowing system log source
+	public static LogSource Window = new LogSource("Window Manager");
 	
 	// The name of this log source flag
 	protected String name = "";
 	
 	/*
-	 * Initializes a log source flag with a name
+	 * Constructs a log source flag with a name
 	 * Parameter: String name - The name of this log source flag
 	 */
 	public  LogSource(String name) {
